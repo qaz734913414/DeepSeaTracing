@@ -1,0 +1,9 @@
+# ignore files in cocos2d-js project
+.idea/
+frameworks/*/
+publish/*/
+tools/*/
+
+.cocos-project.json
+CMakeLists.txt
+manifest.webapp
