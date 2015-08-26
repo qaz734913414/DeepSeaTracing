@@ -7,7 +7,7 @@ var DEBUG_NODE_SHOW = true;
 
 var FirstLayer = cc.Layer.extend({
     sprite:null,//main role
-    particleBubble:null,
+    bubble:null,
     touchLeft:null,
     touchRight:null,
     touchUp:null,
@@ -63,21 +63,44 @@ var FirstLayer = cc.Layer.extend({
         this.seaStone2.setAnchorPoint(0,0);
         this.addChild(this.seaStone2,1);
 
-////////////////////一菲代码添加////////////////////////////
-        this._tuna1 = new cc.Sprite(res.Tuna_png);
+        this.bubble = new cc.Sprite(res.Bubble_png);
+        this.bubble.setPosition(this.screenWidth/4*3,this.screenHeight/2);
+        this.addChild(this.bubble,2);
+
+////////////////////敌方鱼加动画////////////////////////////
+        var frameCache = cc.spriteFrameCache;
+        frameCache.addSpriteFrames(res.Puffer_plist,res.Puffer_png);
+
+        this._tuna1 = new cc.Sprite("#puffer01.png");
         this._tuna1.x = size.width;
         this._tuna1.y = size.height/2;
         this.addChild(this._tuna1, 1);
 
-        this._tuna2 = new cc.Sprite(res.Tuna_png);
+        var animation = new cc.Animation();
+        for(var i=1;i<4;i++){
+            var frameName = "puffer0"+i+".png";
+            cc.log(frameName);
+            var spriteFrame = cc.spriteFrameCache.getSpriteFrame(frameName);
+            animation.addSpriteFrame(spriteFrame);
+        }
+        animation.setDelayPerUnit(0.1);
+        animation.setRestoreOriginalFrame(false);
+        var action = cc.animate(animation);
+        var action1 = cc.animate(animation);
+        var action2 = cc.animate(animation);
+        this._tuna1.runAction(cc.repeatForever(action));
+
+        this._tuna2 = new cc.Sprite("#puffer01.png");
         this._tuna2.x = size.width*1.5;
         this._tuna2.y = size.height/3;
         this.addChild(this._tuna2, 1);
+        this._tuna2.runAction(cc.repeatForever(action1));
 
-        this._tuna3 = new cc.Sprite(res.Tuna_png);
+        this._tuna3 = new cc.Sprite("#puffer01.png");
         this._tuna3.x = size.width*1.8;
         this._tuna3.y = size.height/1.8;
         this.addChild(this._tuna3, 1);
+        this._tuna3.runAction(cc.repeatForever(action2));
 
         //生命条
         this._life = new cc.Sprite(res.Life_png);
@@ -86,16 +109,10 @@ var FirstLayer = cc.Layer.extend({
         this.addChild(this._life,1);
         this.addLife();
 
-        ////////////////////一菲代码添加////////////////////////////
+///////////////////////////敌方鱼////////////////////////////
 
         //初始化主角
         this.addNewSpriteAtPosition(size.width/4,size.height/4);
-
-        //this.particleBubble = new cc.ParticleFlower();
-        //this.particleBubble.texture = cc.textureCache.addImage(res.Bubble_png);
-        //this.particleBubble.setPosition(this.sprite.getPositionX(),this.sprite.getPositionY());
-        //this.addChild(this.particleBubble,2);
-
     },
 
     setupDebugNode:function(){
@@ -106,9 +123,10 @@ var FirstLayer = cc.Layer.extend({
 
 //--------------------------多点触摸-------------------------//
 
-    /**
-    * 多点触控
-    * */
+    ///**
+    //* 多点触控
+    //* */
+
     onEnter:function() {
         this._super();
         cc.log("onEnter");
@@ -169,84 +187,69 @@ var FirstLayer = cc.Layer.extend({
         cc.log("onExit");
         cc.eventManager.removeListener(cc.EventListener.TOUCH_ALL_AT_ONCE);
     },
+
 //-----------------------多点触摸-----------------//
 
 //-----------------------单点触摸start-----------------//
     /**
-    * 单点触控
-    * */
+     * 单点触控
+     * */
 
-//    onEnter:function(){
-//        this._super();
-//        cc.log("onEnter");
-//        var listener = cc.EventListener.create({
-//            event:cc.EventListener.TOUCH_ONE_BY_ONE,
-//            onTouchBegan:this.onTouchBegan.bind(this),
-//            //onTouchMoved:this.onTouchMoved.bind(this),
-//            onTouchEnded:this.onTouchEnded.bind(this)
-//        });
-//        cc.eventManager.addListener(listener,this);
-//    },
-//    onTouchBegan:function(touch,event){
-//        cc.log("onTouchBegan");
-//        //var target = event.getCurrentTarget();
-//        var location = touch.getLocation();
-//
-//        if(location.x>=0&&location.x<=147&&location.y>=0&&location.y<=141) {
-//            this.touchLeft = 1;
-//        }
-//        if(location.x>=147&&location.x<=294&&location.y>=0&&location.y<=141) {
-//            this.touchRight = 1;
-//        }
-//        if(location.x>=1130&&location.x<=1280&&location.y>=0&&location.y<=120){
-//            this.touchUp = 1;
-//            var speed = new cp.Vect();
-//            speed.x = 0;
-//            speed.y = 0;
-//            this.body.setVel(speed);
-//            delete speed;
-//        }
-//
-//        return true;
-//    },
-//
-//    //onTouchMoved : function(touch, event){
-//    //    cc.log("onTouchMoved");
-//    //    var target = event.getCurrentTarget();
-//    //    var location = touch.getLocation();
-//    //    if(location.x>=0&&location.x<=147&&location.y>=0&&location.y<=141)
-//    //    {
-//    //        this.sprite.runAction(cc.MoveTo.create(1,this.sprite.x-5,this.sprite.y+5));
-//    //    }
-//    //    if(location.x>=147&&location.x<=294&&location.y>=0&&location.y<=141)
-//    //    {
-//    //        this.sprite.runAction(cc.MoveTo.create(1,this.sprite.x+5,this.sprite.y+5));
-//    //    }
-//    //    return true;
-//    //},
-//
-//    onTouchEnded : function(touch, event) {
-//        cc.log("onTouchEnded");
-//        //var target = event.getCurrentTarget();
-//        var location = touch.getLocation();
-//        if(location.x>=0&&location.x<=147){
-//            this.touchLeft = 0;
-//        }
-//        if(location.x>147&&location.x<=this.screenWidth/2){
-//            this.touchRight = 0;
-//        }
-//        if(location.x>this.screenWidth/2&&location.x<=this.screenWidth){
-//            this.touchUp = 0;
-//        }
-//        return true;
-//    },
-//
-//    onExit:function(){
-//        this._super();
-//        cc.log("onExit");
-//        cc.eventManager.removeListener(cc.EventListener.TOUCH_ONE_BY_ONE);
-//    },
-////-------------------------------单点触摸end------------------------//
+    //onEnter:function(){
+    //    this._super();
+    //    cc.log("onEnter");
+    //    var listener = cc.EventListener.create({
+    //        event:cc.EventListener.TOUCH_ONE_BY_ONE,
+    //        onTouchBegan:this.onTouchBegan.bind(this),
+    //        //onTouchMoved:this.onTouchMoved.bind(this),
+    //        onTouchEnded:this.onTouchEnded.bind(this)
+    //    });
+    //    cc.eventManager.addListener(listener,this);
+    //},
+    //onTouchBegan:function(touch,event){
+    //    cc.log("onTouchBegan");
+    //    //var target = event.getCurrentTarget();
+    //    var location = touch.getLocation();
+    //
+    //    if(location.x>=0&&location.x<=147&&location.y>=0&&location.y<=141) {
+    //        this.touchLeft = 1;
+    //    }
+    //    if(location.x>=147&&location.x<=294&&location.y>=0&&location.y<=141) {
+    //        this.touchRight = 1;
+    //    }
+    //    if(location.x>=1130&&location.x<=1280&&location.y>=0&&location.y<=120){
+    //        this.touchUp = 1;
+    //        var speed = new cp.Vect();
+    //        speed.x = 0;
+    //        speed.y = 0;
+    //        this.body.setVel(speed);
+    //        delete speed;
+    //    }
+    //    return true;
+    //},
+    //onTouchEnded : function(touch, event) {
+    //    cc.log("onTouchEnded");
+    //    var location = touch.getLocation();
+    //    if(location.x>=0&&location.x<=147){
+    //        this.touchLeft = 0;
+    //        this.touchRight = 0;
+    //    }
+    //    if(location.x>147&&location.x<=this.screenWidth/2){
+    //        this.touchRight = 0;
+    //        this.touchLeft = 0;
+    //    }
+    //    if(location.x>this.screenWidth/2&&location.x<=this.screenWidth){
+    //        this.touchUp = 0;
+    //    }
+    //    return true;
+    //},
+    //onExit:function(){
+    //    this._super();
+    //    cc.log("onExit");
+    //    cc.eventManager.removeListener(cc.EventListener.TOUCH_ONE_BY_ONE);
+    //},
+
+//-------------------------------单点触摸end------------------------//
     initPhysics:function(){
         var winSize = cc.director.getWinSize();
 
@@ -290,12 +293,6 @@ var FirstLayer = cc.Layer.extend({
         this.sprite.setPosition(x,y);
         this.addChild(this.sprite,2);
 
-        //this.particleBubble = new cc.ParticleFlower();
-        //this.particleBubble.texture = cc.textureCache.addImage(res.Bubble_png);
-        //this.particleBubble.setPosition(0,0);
-        //this.particleBubble.setAnchorPoint(0,0);
-        //this.sprite.addChild(this.particleBubble,1);
-
     },
 
     update:function(dt){
@@ -328,6 +325,7 @@ var FirstLayer = cc.Layer.extend({
                 //主角在屏幕中间
                 this.seaStone1.setPositionX(this.seaStone1.getPositionX()-this.speed);
                 this.seaStone2.setPositionX(this.seaStone2.getPositionX()-this.speed);
+                this.bubble.x -= (this.speed);
             }
         }
         //move upward
@@ -348,9 +346,10 @@ var FirstLayer = cc.Layer.extend({
         }
 
         //敌人移动
-        this._tuna1.x -= (this.speed/2);
-        this._tuna2.x -= (this.speed*1.2);
+        this._tuna1.x -= (this.speed*1.3);
+        this._tuna2.x -= (this.speed*1.8);
         this._tuna3.x -= (this.speed*1.5);
+        //this.bubble.x -= (this.speed);
         //敌人循环出现
         if(this._tuna1.x<=-this.screenWidth/2){
             this._tuna1.setPositionX(this.screenWidth*1.1);
@@ -365,8 +364,7 @@ var FirstLayer = cc.Layer.extend({
         if(this.bumpExplore(this._tuna1,this.sprite)&&this.losslife==0){
             this.reduceLife();
             cc.log("bump1");
-            var action = cc.blink(1,4);
-            this.sprite.runAction(action);
+            this.sprite.runAction(cc.blink(1,4));
         }
         if(this.bumpExplore(this._tuna2,this.sprite)&&this.losslife==0){
             this.reduceLife();
@@ -379,6 +377,17 @@ var FirstLayer = cc.Layer.extend({
             cc.log("bump3");
             var action = cc.blink(0.5,4);
             this.sprite.runAction(action);
+        }
+        if(this.bumpExplore(this.bubble,this.sprite)){
+            if(this.bloodNum<10){
+                this.bloodNum++;
+            }
+            cc.log("add life");
+            this.bubble.setPositionX(this.screenWidth);
+            this.displayLife();
+        }
+        if(this.bubble.getPositionX()<0){
+            this.bubble.setPositionX(this.screenWidth);
         }
         if((Math.abs(this._tuna1.x-this.sprite.x)>100||Math.abs(this._tuna1.y-this.sprite.y)>65)&&
             (Math.abs(this._tuna2.x-this.sprite.x)>100||Math.abs(this._tuna2.y-this.sprite.y)>65)&&
@@ -422,6 +431,15 @@ var FirstLayer = cc.Layer.extend({
         delete lifes;
     },
 
+    displayLife:function(){
+        for (var i = 0; i <10; i++) {
+            this._life.removeChild(this.mylife[i], 1);
+        }
+        for(var i = 0; i < this.bloodNum; i++){
+            this._life.addChild(this.mylife[i],1);
+        }
+    },
+
     reduceLife:function(){
         this.losslife = 1;
         this.bloodNum --;
@@ -435,7 +453,7 @@ var FirstLayer = cc.Layer.extend({
         for(var i = 0; i < this.bloodNum; i++){
             this._life.addChild(this.mylife[i],1);
         }
-    },
+    }
 });
 
 var FirstScene = cc.Scene.extend({

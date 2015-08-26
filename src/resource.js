@@ -13,7 +13,9 @@ var res = {
     Tuna_png : "res/fish/tuna.png",
     Life_png : "res/bgElement/life.png",
     Blood_png : "res/bgElement/blood.png",
-    Replay_png : "res/replay.png"
+    Replay_png : "res/replay.png",
+    Puffer_plist : "res/puffer.plist",
+    Puffer_png : "res/puffer.png"
 };
 
 var g_resources = [];
