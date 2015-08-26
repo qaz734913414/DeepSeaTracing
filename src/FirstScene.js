@@ -106,67 +106,69 @@ var FirstLayer = cc.Layer.extend({
 
 //--------------------------多点触摸-------------------------//
 
-    ///**
-    //* 多点触控
-    //* */
-    //onEnter:function() {
-    //    this._super();
-    //    cc.log("onEnter");
-    //    if('touches' in cc.sys.capabilities){
-    //        cc.eventManager.addListener({
-    //            event:cc.EventListener.TOUCH_ALL_AT_ONCE,
-    //            onTouchesBegan:this.onTouchesBegan.bind(this),
-    //            //onTouchesMoved:this.onTouchesMoved.bind(this),
-    //            onTouchesEnded:this.onTouchesEnded.bind(this)
-    //        },this)
-    //    }else{
-    //        cc.log("Touches unsupported");
-    //    }
-    //},
-    //onTouchesBegan:function(touches,event){
-    //    var target = event.getCurrentTarget();
-    //    for(var i=0;i<touches.length;i++){
-    //        var touch = touches[i];
-    //        var location = touch.getLocation();
-    //        if(location.x>=0&&location.x<=147&&location.y>=0&&location.y<=141) {
-    //            this.touchLeft = 1;
-    //        }
-    //        if(location.x>=147&&location.x<=294&&location.y>=0&&location.y<=141) {
-    //            this.touchRight = 1;
-    //        }
-    //        if(location.x>=1130&&location.x<=1280&&location.y>=0&&location.y<=120){
-    //            //this.touchBegan = 1;
-    //            this.touchUp = 1;
-    //            var speed = new cp.Vect();
-    //            speed.x = 0;
-    //            speed.y = 0;
-    //            this.body.setVel(speed);
-    //            delete speed;
-    //        }
-    //    }
-    //    return true;
-    //},
-    //onTouchesEnded:function(touches,event){
-    //    var target = event.getCurrentTarget();
-    //    for(var i=0;i<touches.length;i++) {
-    //        var touch = touches[i];
-    //        var location = touch.getLocation();
-    //        if(location.x>=0&&location.x<=147){
-    //            this.touchLeft = 0;
-    //        }
-    //        if(location.x>147&&location.x<=this.screenWidth/2){
-    //            this.touchRight = 0;
-    //        }
-    //        if(location.x>this.screenWidth/2&&location.x<=this.screenWidth){
-    //            this.touchUp = 0;
-    //        }
-    //    }
-    //},
-    //onExit:function(){
-    //    this._super();
-    //    cc.log("onExit");
-    //    cc.eventManager.removeListener(cc.EventListener.TOUCH_ALL_AT_ONCE);
-    //},
+    /**
+    * 多点触控
+    * */
+    onEnter:function() {
+        this._super();
+        cc.log("onEnter");
+        if('touches' in cc.sys.capabilities){
+            cc.eventManager.addListener({
+                event:cc.EventListener.TOUCH_ALL_AT_ONCE,
+                onTouchesBegan:this.onTouchesBegan.bind(this),
+                //onTouchesMoved:this.onTouchesMoved.bind(this),
+                onTouchesEnded:this.onTouchesEnded.bind(this)
+            },this)
+        }else{
+            cc.log("Touches unsupported");
+        }
+    },
+    onTouchesBegan:function(touches,event){
+        var target = event.getCurrentTarget();
+        for(var i=0;i<touches.length;i++){
+            var touch = touches[i];
+            var location = touch.getLocation();
+            if(location.x>=0&&location.x<=147&&location.y>=0&&location.y<=141) {
+                this.touchLeft = 1;
+            }
+            if(location.x>=147&&location.x<=294&&location.y>=0&&location.y<=141) {
+                this.touchRight = 1;
+            }
+            if(location.x>=1130&&location.x<=1280&&location.y>=0&&location.y<=120){
+                //this.touchBegan = 1;
+                this.touchUp = 1;
+                var speed = new cp.Vect();
+                speed.x = 0;
+                speed.y = 0;
+                this.body.setVel(speed);
+                delete speed;
+            }
+        }
+        return true;
+    },
+    onTouchesEnded:function(touches,event){
+        var target = event.getCurrentTarget();
+        for(var i=0;i<touches.length;i++) {
+            var touch = touches[i];
+            var location = touch.getLocation();
+            if(location.x>=0&&location.x<=147){
+                this.touchLeft = 0;
+                this.touchRight = 0;
+            }
+            if(location.x>147&&location.x<=this.screenWidth/2){
+                this.touchRight = 0;
+                this.touchLeft = 0;
+            }
+            if(location.x>this.screenWidth/2&&location.x<=this.screenWidth){
+                this.touchUp = 0;
+            }
+        }
+    },
+    onExit:function(){
+        this._super();
+        cc.log("onExit");
+        cc.eventManager.removeListener(cc.EventListener.TOUCH_ALL_AT_ONCE);
+    },
 //-----------------------多点触摸-----------------//
 
 //-----------------------单点触摸start-----------------//
@@ -174,77 +176,77 @@ var FirstLayer = cc.Layer.extend({
     * 单点触控
     * */
 
-    onEnter:function(){
-        this._super();
-        cc.log("onEnter");
-        var listener = cc.EventListener.create({
-            event:cc.EventListener.TOUCH_ONE_BY_ONE,
-            onTouchBegan:this.onTouchBegan.bind(this),
-            //onTouchMoved:this.onTouchMoved.bind(this),
-            onTouchEnded:this.onTouchEnded.bind(this)
-        });
-        cc.eventManager.addListener(listener,this);
-    },
-    onTouchBegan:function(touch,event){
-        cc.log("onTouchBegan");
-        //var target = event.getCurrentTarget();
-        var location = touch.getLocation();
-
-        if(location.x>=0&&location.x<=147&&location.y>=0&&location.y<=141) {
-            this.touchLeft = 1;
-        }
-        if(location.x>=147&&location.x<=294&&location.y>=0&&location.y<=141) {
-            this.touchRight = 1;
-        }
-        if(location.x>=1130&&location.x<=1280&&location.y>=0&&location.y<=120){
-            this.touchUp = 1;
-            var speed = new cp.Vect();
-            speed.x = 0;
-            speed.y = 0;
-            this.body.setVel(speed);
-            delete speed;
-        }
-
-        return true;
-    },
-
-    //onTouchMoved : function(touch, event){
-    //    cc.log("onTouchMoved");
-    //    var target = event.getCurrentTarget();
-    //    var location = touch.getLocation();
-    //    if(location.x>=0&&location.x<=147&&location.y>=0&&location.y<=141)
-    //    {
-    //        this.sprite.runAction(cc.MoveTo.create(1,this.sprite.x-5,this.sprite.y+5));
-    //    }
-    //    if(location.x>=147&&location.x<=294&&location.y>=0&&location.y<=141)
-    //    {
-    //        this.sprite.runAction(cc.MoveTo.create(1,this.sprite.x+5,this.sprite.y+5));
-    //    }
-    //    return true;
-    //},
-
-    onTouchEnded : function(touch, event) {
-        cc.log("onTouchEnded");
-        //var target = event.getCurrentTarget();
-        var location = touch.getLocation();
-        if(location.x>=0&&location.x<=147){
-            this.touchLeft = 0;
-        }
-        if(location.x>147&&location.x<=this.screenWidth/2){
-            this.touchRight = 0;
-        }
-        if(location.x>this.screenWidth/2&&location.x<=this.screenWidth){
-            this.touchUp = 0;
-        }
-        return true;
-    },
-
-    onExit:function(){
-        this._super();
-        cc.log("onExit");
-        cc.eventManager.removeListener(cc.EventListener.TOUCH_ONE_BY_ONE);
-    },
-//-------------------------------单点触摸end------------------------//
+//    onEnter:function(){
+//        this._super();
+//        cc.log("onEnter");
+//        var listener = cc.EventListener.create({
+//            event:cc.EventListener.TOUCH_ONE_BY_ONE,
+//            onTouchBegan:this.onTouchBegan.bind(this),
+//            //onTouchMoved:this.onTouchMoved.bind(this),
+//            onTouchEnded:this.onTouchEnded.bind(this)
+//        });
+//        cc.eventManager.addListener(listener,this);
+//    },
+//    onTouchBegan:function(touch,event){
+//        cc.log("onTouchBegan");
+//        //var target = event.getCurrentTarget();
+//        var location = touch.getLocation();
+//
+//        if(location.x>=0&&location.x<=147&&location.y>=0&&location.y<=141) {
+//            this.touchLeft = 1;
+//        }
+//        if(location.x>=147&&location.x<=294&&location.y>=0&&location.y<=141) {
+//            this.touchRight = 1;
+//        }
+//        if(location.x>=1130&&location.x<=1280&&location.y>=0&&location.y<=120){
+//            this.touchUp = 1;
+//            var speed = new cp.Vect();
+//            speed.x = 0;
+//            speed.y = 0;
+//            this.body.setVel(speed);
+//            delete speed;
+//        }
+//
+//        return true;
+//    },
+//
+//    //onTouchMoved : function(touch, event){
+//    //    cc.log("onTouchMoved");
+//    //    var target = event.getCurrentTarget();
+//    //    var location = touch.getLocation();
+//    //    if(location.x>=0&&location.x<=147&&location.y>=0&&location.y<=141)
+//    //    {
+//    //        this.sprite.runAction(cc.MoveTo.create(1,this.sprite.x-5,this.sprite.y+5));
+//    //    }
+//    //    if(location.x>=147&&location.x<=294&&location.y>=0&&location.y<=141)
+//    //    {
+//    //        this.sprite.runAction(cc.MoveTo.create(1,this.sprite.x+5,this.sprite.y+5));
+//    //    }
+//    //    return true;
+//    //},
+//
+//    onTouchEnded : function(touch, event) {
+//        cc.log("onTouchEnded");
+//        //var target = event.getCurrentTarget();
+//        var location = touch.getLocation();
+//        if(location.x>=0&&location.x<=147){
+//            this.touchLeft = 0;
+//        }
+//        if(location.x>147&&location.x<=this.screenWidth/2){
+//            this.touchRight = 0;
+//        }
+//        if(location.x>this.screenWidth/2&&location.x<=this.screenWidth){
+//            this.touchUp = 0;
+//        }
+//        return true;
+//    },
+//
+//    onExit:function(){
+//        this._super();
+//        cc.log("onExit");
+//        cc.eventManager.removeListener(cc.EventListener.TOUCH_ONE_BY_ONE);
+//    },
+////-------------------------------单点触摸end------------------------//
     initPhysics:function(){
         var winSize = cc.director.getWinSize();
 
