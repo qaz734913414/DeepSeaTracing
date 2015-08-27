@@ -15,7 +15,9 @@ var res = {
     Blood_png : "res/bgElement/blood.png",
     Replay_png : "res/replay.png",
     Puffer_plist : "res/puffer.plist",
-    Puffer_png : "res/puffer.png"
+    Puffer_png : "res/puffer.png",
+    Fish_png : "res/fish.png",
+    Fish_plist : "res/fish.plist"
 };
 
 var g_resources = [];

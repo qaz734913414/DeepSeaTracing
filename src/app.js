@@ -1,6 +1,5 @@
 
 var HelloWorldLayer = cc.Layer.extend({
-    sprite:null,
     ctor:function () {
         //////////////////////////////
         // 1. super init first
@@ -43,16 +42,10 @@ var HelloWorldLayer = cc.Layer.extend({
         this.addChild(helloLabel, 5);
 
         // add "HelloWorld" splash screen"
-        this.sprite = new cc.Sprite(res.HelloWorld_png);
-        this.sprite.attr({
-            x: size.width / 2,
-            y: size.height / 2,
-            scale: 0.5,
-            rotation: 180
-        });
-        this.addChild(this.sprite, 0);
+        var sprite =Fish.createRandomType();
+        this.addChild(sprite, 2);
 
-        this.sprite.runAction(
+        sprite.runAction(
             cc.sequence(
                 cc.rotateTo(2, 0),
                 cc.scaleTo(2, 1, 1)
