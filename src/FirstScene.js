@@ -102,6 +102,12 @@ var FirstLayer = cc.Layer.extend({
         this.addChild(this._tuna3, 1);
         this._tuna3.runAction(cc.repeatForever(action2));
 
+
+
+        this.addParticleSystem(this._tuna1);
+        this.addParticleSystem(this._tuna2);
+        this.addParticleSystem(this._tuna3);
+
         //生命条
         this._life = new cc.Sprite(res.Life_png);
         this._life.x = 180;
@@ -119,6 +125,38 @@ var FirstLayer = cc.Layer.extend({
         this._debugNode=new cc.PhysicsDebugNode(this.space);
         this._debugNode.visible=DEBUG_NODE_SHOW;
         this.addChild(this._debugNode);
+    },
+
+    /////////////////粒子系统，敌方鱼吐气泡///////////////////////
+    addParticleSystem:function(sprite){
+        var particleSystem = new cc.ParticleSystem(5);
+        //var particleSystem1 = new cc.ParticleFlower(20);
+        particleSystem.texture = cc.textureCache.addImage(res.Bubble_png);
+
+        particleSystem.x = 0;
+        particleSystem.y = 26;
+        particleSystem.duration = cc.ParticleSystem.DURATION_INFINITY;
+        particleSystem.emitterMode = cc.ParticleSystem.MODE_GRAVITY;
+        particleSystem.gravity = cc.p(0,-20);
+        particleSystem.setRadialAccel(0);
+        particleSystem.setRadialAccelVar(0);
+        particleSystem.setSpeed(180);
+        particleSystem.setSpeedVar(50);
+        particleSystem.setAngle(90);
+        particleSystem.setAngleVar(20);
+        particleSystem.setLife(3.5);
+        particleSystem.setLifeVar(1);
+        particleSystem.emissionRate = particleSystem.totalParticles / particleSystem.life;
+        particleSystem.setStartColor(cc.color(0,0,255, 128));
+        particleSystem.setStartColorVar(cc.color(0, 0, 10, -50));
+        particleSystem.setEndColor(cc.color(0, 0, 255, 128));
+        particleSystem.setEndColorVar(cc.color(0, 0, 0, 0));
+        particleSystem.setStartSize(20.0);
+        particleSystem.setStartSizeVar(5.0);
+        particleSystem.setEndSize(40.0);
+        sprite.addChild(particleSystem);
+        //sprite.addChild(particleSystem1);
+        console.log("particleSystem~~~~~~~");
     },
 
 //--------------------------多点触摸-------------------------//
