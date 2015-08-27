@@ -8,6 +8,7 @@ var DEBUG_NODE_SHOW = true;
 var FirstLayer = cc.Layer.extend({
     sprite:null,//main role
     bubble:null,
+    distanceShow:null,
     touchLeft:null,
     touchRight:null,
     touchUp:null,
@@ -25,6 +26,7 @@ var FirstLayer = cc.Layer.extend({
     speed:5,
     screenWidth:0,
     screenHeight:0,
+    gameTime:0,
     ctor:function(){
         this._super();
         this.initPhysics();
@@ -52,6 +54,13 @@ var FirstLayer = cc.Layer.extend({
         UpBtn.setPosition(size.width,0);
         UpBtn.setAnchorPoint(1,0);
         this.addChild(UpBtn,2,2);
+
+        this.distanceShow = new cc.LabelTTF("0","Arial",48);
+        this.distanceShow.x = size.width;
+        this.distanceShow.y = size.height;
+        this.distanceShow.anchorX = 1;
+        this.distanceShow.anchorY = 1;
+        this.addChild(this.distanceShow, 3);
 
         this.seaStone1 = new cc.Sprite(res.SeaStone1_png);
         this.seaStone1.setPosition(0,0);
@@ -336,6 +345,7 @@ var FirstLayer = cc.Layer.extend({
     update:function(dt){
         var timeStep = 0.03;
         this.space.step(timeStep);
+        this.distanceShow.setString(parseInt(this.gameTime*this.speed/10, 10));
 
         if(this.sprite.x<20){
             this.sprite.setPositionX(20);
@@ -364,6 +374,7 @@ var FirstLayer = cc.Layer.extend({
                 this.seaStone1.setPositionX(this.seaStone1.getPositionX()-this.speed);
                 this.seaStone2.setPositionX(this.seaStone2.getPositionX()-this.speed);
                 this.bubble.x -= (this.speed);
+                this.gameTime++;
             }
         }
         //move upward
