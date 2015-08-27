@@ -303,7 +303,7 @@ var FirstLayer = cc.Layer.extend({
         this.space = new cp.Space();
         this.setupDebugNode();
 
-        this.space.gravity = cp.v(0,-10);
+        this.space.gravity = cp.v(0,-30);
 
         var staticBody = this.space.staticBody;
 
