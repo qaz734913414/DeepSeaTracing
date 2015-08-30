@@ -17,10 +17,16 @@ var res = {
     Puffer_plist : "res/puffer.plist",
     Puffer_png : "res/puffer.png",
     Fish_png : "res/fish.png",
-    Fish_plist : "res/fish.plist"
+    Fish_plist : "res/fish.plist",
+    FishSize_plist : "res/fishsize.plist",
+    FishSize_png : "res/fishsize.png"
 };
 
 var g_resources = [];
 for (var i in res) {
     g_resources.push(res[i]);
 }
+
+var raceRoad = [110,220,330,440,550,660];    //6条轨道中心点
+var xOffset = [1,1.2,1.4,1.6,1.8,2];         //
+var speedRate = [0.2,0.4,0.6,0.8,1,1.2,1.4,1.6,1.8,2,2.2,2.4,2.6,2.8,3];  //速度变换倍率

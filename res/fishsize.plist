@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+		<key>frames</key>
+		<dict>
+			<key>fishsize1.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{61,484},{68,79}}</string>
+				<key>offset</key>
+				<string>{-2,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{80,80}</string>
+			</dict>
+			<key>fishsize10.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{109,317},{34,72}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{35,73}</string>
+			</dict>
+			<key>fishsize11.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,382},{61,114}}</string>
+				<key>offset</key>
+				<string>{0,-1}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{63,115}</string>
+			</dict>
+			<key>fishsize12.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{281,0},{218,160}}</string>
+				<key>offset</key>
+				<string>{-1,-1}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{225,165}</string>
+			</dict>
+			<key>fishsize13.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,0},{281,142}}</string>
+				<key>offset</key>
+				<string>{0,-1}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{283,145}</string>
+			</dict>
+			<key>fishsize2.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,251},{144,66}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{146,68}</string>
+			</dict>
+			<key>fishsize3.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,317},{109,65}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{109,66}</string>
+			</dict>
+			<key>fishsize4.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{144,251},{97,55}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<true />
+				<key>sourceSize</key>
+				<string>{97,55}</string>
+			</dict>
+			<key>fishsize5.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,496},{43,95}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{43,95}</string>
+			</dict>
+			<key>fishsize6.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{61,382},{44,102}}</string>
+				<key>offset</key>
+				<string>{1,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{45,103}</string>
+			</dict>
+			<key>fishsize7.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,142},{200,109}}</string>
+				<key>offset</key>
+				<string>{1,-1}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{201,111}</string>
+			</dict>
+			<key>fishsize8.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{200,142},{71,137}}</string>
+				<key>offset</key>
+				<string>{-1,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{73,139}</string>
+			</dict>
+			<key>fishsize9.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{105,389},{47,66}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{49,67}</string>
+			</dict>
+		</dict>
+		<key>metadata</key>
+		<dict>
+			<key>format</key>
+			<integer>2</integer>
+			<key>textureFileName</key>
+			<string>fishsize.png</string>
+			<key>realTextureFileName</key>
+			<string>fishsize.png</string>
+			<key>size</key>
+			<string>{512,1024}</string>
+		</dict>
+		<key>texture</key>
+		<dict>
+			<key>width</key>
+			<integer>512</integer>
+			<key>height</key>
+			<integer>1024</integer>
+		</dict>
+	</dict>
+</plist>

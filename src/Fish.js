@@ -3,7 +3,7 @@
  */
 var Fish = cc.Sprite.extend({
     type:0,
-    speed:0,
+    speed:5,
     ctor:function(type){
         cc.log("random num:"+type);
         var size = cc.winSize;
@@ -60,7 +60,15 @@ var Fish = cc.Sprite.extend({
     },
     init:function(type){
         this.type = type;
+        this.speed = this.getRandomSpeed();
         return true;
+    },
+    getRandomSpeed:function(){
+        /**
+         *产生随机速率
+         * */
+        var random=parseInt(Math.random()*15);
+        return speedRate[random]*5;
     }
 });
 Fish.createRandomType = function(){

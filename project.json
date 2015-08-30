@@ -15,6 +15,7 @@
         "src/app.js",
         "src/FirstScene.js",
         "src/GameOverScene.js",
-        "src/Fish.js"
+        "src/Fish.js",
+        "src/Enermy.js"
     ]
 }

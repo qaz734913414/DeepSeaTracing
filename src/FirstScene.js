@@ -359,17 +359,20 @@ var FirstLayer = cc.Layer.extend({
         if(this.bumpExplore(this._tuna1,this.sprite)&&this.losslife==0){
             this.reduceLife();
             cc.log("bump1");
+            this.sprite.setVisible(true);
             this.sprite.runAction(cc.blink(1,4));
         }
         if(this.bumpExplore(this._tuna2,this.sprite)&&this.losslife==0){
             this.reduceLife();
             cc.log("bump2");
+            this.sprite.setVisible(true);
             var action = cc.blink(1,4);
             this.sprite.runAction(action);
         }
         if(this.bumpExplore(this._tuna3,this.sprite)&&this.losslife==0){
             this.reduceLife();
             cc.log("bump3");
+            this.sprite.setVisible(true);
             var action = cc.blink(0.5,4);
             this.sprite.runAction(action);
         }
@@ -438,6 +441,8 @@ var FirstLayer = cc.Layer.extend({
     reduceLife:function(){
         this.losslife = 1;
         this.bloodNum --;
+        //var action = cc.blink(0.5,4);
+        //this.sprite.runAction(action);
         if(this.bloodNum==0){
             cc.director.runScene(new cc.TransitionCrossFade(1.0, new GameOverScene()));
         }
@@ -454,7 +459,12 @@ var FirstLayer = cc.Layer.extend({
 var FirstScene = cc.Scene.extend({
     onEnter:function () {
         this._super();
-        var layer = new FirstLayer();
-        this.addChild(layer);
+        var layer1 = new FirstLayer();
+        this.addChild(layer1,0);
+        cc.log("layer1");
+        var layer2 = new Enermy();
+        cc.log("layer2 finish");
+        this.addChild(layer2,1);
+        cc.log("layer2");
     }
 });
