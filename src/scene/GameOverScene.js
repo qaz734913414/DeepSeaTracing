@@ -24,7 +24,7 @@ var GameOverLayer = cc.Layer.extend({
         this.addChild(mainRole,2);
 
         var replayMenu = new cc.MenuItemImage(res.Replay_png,res.Replay_png,function(){
-            cc.director.runScene(new cc.TransitionCrossFade(0.5,new FirstScene()))},this);
+            cc.director.runScene(new cc.TransitionCrossFade(0.5,new GameScene()))},this);
         replayMenu.setPosition(size.width,0);
         replayMenu.setAnchorPoint(1,0);
 
@@ -45,4 +45,4 @@ var GameOverScene = cc.Scene.extend({
         var layer = new GameOverLayer();
         this.addChild(layer);
     }
-})
+});

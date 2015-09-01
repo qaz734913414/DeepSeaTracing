@@ -1,7 +1,7 @@
 /**
  * Created by njw on 2015/8/28.
  */
-var Enermy = cc.Layer.extend({
+var Enemy = cc.Layer.extend({
     //speed:0,
     enermyOne:null,
     enermyTwo:null,

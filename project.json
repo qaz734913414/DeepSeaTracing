@@ -12,10 +12,13 @@
 
     "jsList" : [
         "src/resource.js",
-        "src/app.js",
-        "src/FirstScene.js",
-        "src/GameOverScene.js",
-        "src/Fish.js",
-        "src/Enermy.js"
+        "src/scene/GameScene.js",
+        "src/scene/GameOverScene.js",
+        "src/items/Fish.js",
+        "src/items/SeaStone.js",
+        "src/Enemy.js",
+        "src/gameUI/GameSceneUI.js",
+        "src/resource.js",
+        "src/items/PhysX.js"
     ]
 }
