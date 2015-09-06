@@ -64,8 +64,8 @@ var GameSceneUI = cc.Layer.extend({
             cc.director.resume();
         },this);
         var resumeMu = new cc.Menu(resumeMenu);
-        resumeMu.x = size.width/2 - size.width/8;
-        resumeMu.y = size.height/2;
+        resumeMu.x = size.width - 40;
+        resumeMu.y = size.height - 40;
 
         //音乐开关按钮
         cc.audioEngine.playMusic("res/playingMusic.mp3", true);//暂时与主页音乐相同，后期会替换
@@ -76,7 +76,7 @@ var GameSceneUI = cc.Layer.extend({
             btnVoiceOff.setVisible(true);
         },this);
         var btnVoiceOn = new cc.Menu(voiceOn);
-        btnVoiceOn.x = size.width/2 + size.width/8;
+        btnVoiceOn.x = size.width/2;
         btnVoiceOn.y = size.height/2;
         //this.addChild(btnVoiceOn,2);
 
@@ -87,7 +87,7 @@ var GameSceneUI = cc.Layer.extend({
             btnVoiceOff.setVisible(false);
         },this);
         var btnVoiceOff = new cc.Menu(voiceOff);
-        btnVoiceOff.x = size.width/2 + size.width/8;
+        btnVoiceOff.x = size.width/2;
         btnVoiceOff.y = size.height/2;
         //this.addChild(btnVoiceOff,2);
         //btnVoiceOff.setVisible(false);
