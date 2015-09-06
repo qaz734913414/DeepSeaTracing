@@ -2,30 +2,87 @@
  * Created by njw on 2015/8/27.
  */
 var Fish = cc.Sprite.extend({
-    type:0,
+    type:0,//1~6是游动的鱼，789是地上冒出来的鱼，10石头鱼
     speed:5,
     ctor:function(type){
+        type = parseInt(type);
         cc.log("random num:"+type);
         var size = cc.winSize;
-        var frameCache = cc.spriteFrameCache;
-        frameCache.addSpriteFrames(res.Fish_plist,res.Fish_png);
-        var temp = (1+(type-1)*3);
-        this._super("#fish"+temp+".png");
-        this.init(type);
-        var animation = new cc.Animation();
-        for(var i = temp;i<temp+3;i++){
-            var frameName = "fish"+i+".png";
-            cc.log(frameName);
-            var spriteFrame = cc.spriteFrameCache.getSpriteFrame(frameName);
-            animation.addSpriteFrame(spriteFrame);
+        if(type<=5&&type>=0){
+            var frameCache = cc.spriteFrameCache;
+            frameCache.addSpriteFrames(res.AnimationFiveToOne_plist,res.AnimationFiveToOne_png);
+            //var temp = (1+(type-1)*3);
+            this._super("#fish"+type+".png");
+            this.init(type);
+            var animation = new cc.Animation();
+            for(var i = type*5;i<type*5+5;i++){
+                var frameName = "fish"+i+".png";
+                cc.log(frameName);
+                var spriteFrame = cc.spriteFrameCache.getSpriteFrame(frameName);
+                animation.addSpriteFrame(spriteFrame);
+            }
+            //animation.setDelayPerUnit(0.1);
+            //animation.setRestoreOriginalFrame(false);
+            //var action = cc.animate(animation);
+            //this.runAction(cc.repeatForever(action));
+            //this.addParticleSystem(this);
         }
-
+        if(type>=6&&type<=8){
+            var frameCache = cc.spriteFrameCache;
+            frameCache.addSpriteFrames(res.Eel_plist,res.Eel_png);
+            this._super("#eel"+(type-5)+".png");
+            this.init(type);
+            var animation = new cc.Animation();
+            for(var i = (type-6)*2+1;i<((type-6)*2+3);i++){
+                var frameName = "eel"+i+".png";
+                cc.log(frameName);
+                var spriteFrame = cc.spriteFrameCache.getSpriteFrame(frameName);
+                animation.addSpriteFrame(spriteFrame);
+            }
+            //animation.setDelayPerUnit(0.1);
+            //animation.setRestoreOriginalFrame(false);
+            //var action = cc.animate(animation);
+            //this.runAction(cc.repeatForever(action));
+            //this.addParticleSystem(this);
+        }
+        if(type==9){
+            var frameCache = cc.spriteFrameCache;
+            frameCache.addSpriteFrames(res.StoneFish_plist,res.StoneFish_png);
+            this._super("#stone"+(type-8)+".png");
+            this.init(type);
+            var animation = new cc.Animation();
+            for(var i = 1;i<5;i++){
+                var frameName = "stone"+i+".png";
+                cc.log(frameName);
+                var spriteFrame = cc.spriteFrameCache.getSpriteFrame(frameName);
+                animation.addSpriteFrame(spriteFrame);
+            }
+        }
         animation.setDelayPerUnit(0.1);
         animation.setRestoreOriginalFrame(false);
         var action = cc.animate(animation);
         this.runAction(cc.repeatForever(action));
         this.addParticleSystem(this);
 
+
+        //if(type==4){//等以后美工资源做好了，要优化
+        //    var frameCache = cc.spriteFrameCache;
+        //    frameCache.addSpriteFrames(res.StoneFish_plist,res.StoneFish_png);
+        //    this._super("#stone1.png");
+        //    this.init(type);
+        //    var animation = new cc.Animation();
+        //    for(var i=1;i<5;i++){
+        //        var frameName = "stone"+i+".png";
+        //        cc.log(frameName);
+        //        var spriteFrame = cc.spriteFrameCache.getSpriteFrame(frameName);
+        //        animation.addSpriteFrame(spriteFrame);
+        //    }
+        //    animation.setDelayPerUnit(0.1);
+        //    animation.setRestoreOriginalFrame(false);
+        //    var action = cc.animate(animation);
+        //    this.runAction(cc.repeatForever(action));
+        //    this.addParticleSystem(this);
+        //}
         return true;
     },
     addParticleSystem:function(sprite){
@@ -65,12 +122,32 @@ var Fish = cc.Sprite.extend({
     },
     getRandomSpeed:function(){
         /**
-         *�����������
+         * 获取随机速度
          * */
         var random=parseInt(Math.random()*15);
         return speedRate[random]*5;
+    },
+    actAnimation:function(){//等以后所有动画出来，这里要优化
+        /**
+         * 碰撞动画
+         * */
+        var frameCache1 = cc.spriteFrameCache;
+        frameCache1.addSpriteFrames(res.StoneFish_plist,res.StoneFish_png);
+        var animation = new cc.Animation();
+        for(var i=5;i<9;i++){
+            var frameName = "stone"+i+".png";
+            cc.log(frameName);
+            var spriteFrame = cc.spriteFrameCache.getSpriteFrame(frameName);
+            animation.addSpriteFrame(spriteFrame);
+        }
+        animation.setDelayPerUnit(0.1);
+        animation.setRestoreOriginalFrame(true);
+        var action = cc.animate(animation);
+        this.runAction(action);
+        return true;
     }
 });
 Fish.createRandomType = function(){
-    return new Fish(Math.ceil(Math.random()*3));
+    return new Fish(parseInt(Math.random()*10));
 };
+

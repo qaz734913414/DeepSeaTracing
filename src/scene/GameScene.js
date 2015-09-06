@@ -15,19 +15,18 @@ var GameSceneLayer = cc.Layer.extend({
     screenWidth:0,
     screenHeight:0,
     gameTime:0,
-
     ui:null,
     seaStone:null,
     _life:null,
     myLife:[],
     lossLife:0,
+    meetEnemy:1,
     bloodNum:10,
-    _tuna1:null,
-    _tuna2:null,
-    _tuna3:null,
-    score:null,
-    plusspeed:null,
-    minusspeed:null,
+    enemy:[], //æ•Œäººæ ˆï¼Œç•™ç€ä»¥åä¼˜åŒ–
+    //_tuna1:null,
+    //_tuna2:null,
+    //_tuna3:null,
+
     bubble:null,
 
     touchLeft:null,
@@ -56,28 +55,28 @@ var GameSceneLayer = cc.Layer.extend({
         this.addChild(this.enemyLayer,1);
 
         this.physX = new PhysX(this);
-        this.addChild(this.physX,2);
+        this.addChild(this.physX,3);
         this.physX.initPhysics();
-        //³õÊ¼»¯Ö÷½Ç
+        //ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         this.physX.addNewSpriteAtPosition(size.width/4,size.height/4);
 
         this.seaStone = new SeaStone(this);
         this.addChild(this.seaStone,1);
 
-        this._tuna1 = Fish.createRandomType();
-        this._tuna1.x = size.width;
-        this._tuna1.y = size.height/2;
-        this.addChild(this._tuna1,2);
+        //this._tuna1 = Fish.createRandomType();
+        //this._tuna1.x = size.width;
+        //this._tuna1.y = size.height/2;
+        //this.addChild(this._tuna1,2);
 
-        this._tuna2 = Fish.createRandomType();
-        this._tuna2.x = size.width*1.5;
-        this._tuna2.y = size.height/3;
-        this.addChild(this._tuna2, 1);
+        //this._tuna2 = Fish.createRandomType();
+        //this._tuna2.x = size.width*1.5;
+        //this._tuna2.y = size.height/3;
+        //this.addChild(this._tuna2, 1);
 
-        this._tuna3 = Fish.createRandomType();
-        this._tuna3.x = size.width*1.8;
-        this._tuna3.y = size.height/1.8;
-        this.addChild(this._tuna3, 1);
+        //this._tuna3 = Fish.createRandomType();
+        //this._tuna3.x = size.width*1.8;
+        //this._tuna3.y = size.height/1.8;
+        //this.addChild(this._tuna3, 1);
 
         this.bubble = new cc.Sprite(res.Bubble_png);
         this.bubble.x= size.width/4 * 3;
@@ -89,7 +88,7 @@ var GameSceneLayer = cc.Layer.extend({
 
     },
 
-//-----------------------µ¥µã´¥Ãşstart-----------------//
+//-----------------------å•ç‚¹è§¦æ§start-----------------//
 
     onEnter:function(){
         this._super();
@@ -115,7 +114,7 @@ var GameSceneLayer = cc.Layer.extend({
         }
         if(location.x>=1130&&location.x<=1280&&location.y>=0&&location.y<=120){
             this.touchUp = 1;
-            cc.log("touchup"+location.x,this.touchUp);
+            cc.log("touchUp"+location.x,this.touchUp);
             this.upSpeed = new cp.Vect();
             this.upSpeed.x = 0;
             this.upSpeed.y = 0;
@@ -147,7 +146,7 @@ var GameSceneLayer = cc.Layer.extend({
         cc.eventManager.removeListener(cc.EventListener.TOUCH_ONE_BY_ONE);
     },
 
-//-------------------------------µ¥µã´¥Ãşend------------------------//
+//-------------------------------å•ç‚¹è§¦æ§end------------------------//
 
     checkMainActor:function(){
         if(this.physX.sprite.x<20){
@@ -172,10 +171,10 @@ var GameSceneLayer = cc.Layer.extend({
         //move right
         if(this.touchRight==1){
             if(this.physX.sprite.getPositionX()<this.screenWidth/2){
-                //Ö÷½ÇÔÚÆÁÄ»×ó°ë±ß£¬Ö÷½ÇÒÆ¶¯
+                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½ï¿½ß£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½
                 this.physX.sprite.runAction(cc.MoveTo.create(1,this.physX.sprite.x+5,this.physX.sprite.y));
             }else{
-                //Ö÷½ÇÔÚÆÁÄ»ÖĞ¼ä
+                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½Ğ¼ï¿½
                 this.seaStone.seaStone1.setPositionX(this.seaStone.seaStone1.getPositionX()-this.speed);
                 this.seaStone.seaStone2.setPositionX(this.seaStone.seaStone2.getPositionX()-this.speed);
                 this.bubble.x -= (this.speed);
@@ -185,49 +184,50 @@ var GameSceneLayer = cc.Layer.extend({
         //move upward
         //if(this.touchUp==1&&(this.physX.sprite.getPositionY()<(this.screenHeight-this.SPRITE_HEIGTH))){
         if(this.touchUp==1){
-            this.plusspeed = 0;
-            this.plusspeed += 12;
-            this.physX.sprite.runAction(cc.MoveTo.create(1,this.physX.sprite.x,this.physX.sprite.y+this.plusspeed));
-        }else{
-            this.minusspeed = -1;
-            this.minusspeed *= 4;
-            this.physX.sprite.runAction(cc.MoveTo.create(1,this.physX.sprite.x,this.physX.sprite.y+this.minusspeed));
+            this.physX.sprite.runAction(cc.MoveTo.create(1,this.physX.sprite.x,this.physX.sprite.y+10));
         }
     },
 
     moveFish:function(){
-        //µĞÈËÒÆ¶¯
-        this._tuna1.x -= (this.speed*1.3);
-        this._tuna2.x -= (this.speed*1.8);
-        this._tuna3.x -= (this.speed*1.5);
+        //ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½
+        if(this.physX.sprite.getPositionX()<this.screenWidth/2){
+            this.enemyLayer.enemyOne.x -= (this.speed*1.3);
+            this.enemyLayer.enemyTwo.x -= (this.speed*1.8);
+            this.enemyLayer.enemyThree.x -= (this.speed*1.5);
+        }else{
+            this.enemyLayer.enemyOne.x -= (this.speed*1.8);
+            this.enemyLayer.enemyTwo.x -= (this.speed*2.3);
+            this.enemyLayer.enemyThree.x -= (this.speed*2.0);
+        }
+
         //this.bubble.x -= (this.speed);
-        //µĞÈËÑ­»·³öÏÖ
-        if(this._tuna1.x<=-this.screenWidth/2){
-            this._tuna1.setPositionX(this.screenWidth*1.1);
+        //ï¿½ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        if(this.enemyLayer.enemyOne.x<=-this.screenWidth/2){
+            this.enemyLayer.enemyOne.x = this.screenWidth*1.1;
         }
-        if(this._tuna2.x<=-this.screenWidth/2){
-            this._tuna2.setPositionX(this.screenWidth*1.1);
+        if(this.enemyLayer.enemyTwo.x<=-this.screenWidth/2){
+            this.enemyLayer.enemyTwo.x = this.screenWidth*1.1;
         }
-        if(this._tuna3.x<=-this.screenWidth/2){
-            this._tuna3.setPositionX(this.screenWidth*1.1);
+        if(this.enemyLayer.enemyThree.x<=-this.screenWidth/2){
+            this.enemyLayer.enemyThree.x = this.screenWidth*1.1;
         }
     },
 
     detectCollision:function(){
-        if(this.bumpExplore(this._tuna1,this.physX.sprite)&&this.losslife==0){
+        if(this.bumpExplore(this.enemyLayer.enemyOne,this.physX.sprite)&&this.losslife==0){
             this.reduceLife();
             cc.log("bump1");
             this.physX.sprite.setVisible(true);
             this.physX.sprite.runAction(cc.blink(1,4));
         }
-        if(this.bumpExplore(this._tuna2,this.physX.sprite)&&this.losslife==0){
+        if(this.bumpExplore(this.enemyLayer.enemyTwo,this.physX.sprite)&&this.losslife==0){
             this.reduceLife();
             cc.log("bump2");
             this.physX.sprite.setVisible(true);
             var action = cc.blink(1,4);
             this.physX.sprite.runAction(action);
         }
-        if(this.bumpExplore(this._tuna3,this.physX.sprite)&&this.losslife==0){
+        if(this.bumpExplore(this.enemyLayer.enemyThree,this.physX.sprite)&&this.losslife==0){
             this.reduceLife();
             cc.log("bump3");
             this.physX.sprite.setVisible(true);
@@ -245,18 +245,57 @@ var GameSceneLayer = cc.Layer.extend({
         if(this.bubble.getPositionX()<0){
             this.bubble.setPositionX(this.screenWidth);
         }
-        if((Math.abs(this._tuna1.x-this.physX.sprite.x)>100||Math.abs(this._tuna1.y-this.physX.sprite.y)>65)&&
-            (Math.abs(this._tuna2.x-this.physX.sprite.x)>100||Math.abs(this._tuna2.y-this.physX.sprite.y)>65)&&
-            (Math.abs(this._tuna3.x-this.physX.sprite.x)>100||Math.abs(this._tuna3.y-this.physX.sprite.y)>65)){
+        if((Math.abs(this.enemyLayer.enemyOne.x-this.physX.sprite.x)>100||Math.abs(this.enemyLayer.enemyOne.y-this.physX.sprite.y)>65)&&
+            (Math.abs(this.enemyLayer.enemyTwo.x-this.physX.sprite.x)>100||Math.abs(this.enemyLayer.enemyTwo.y-this.physX.sprite.y)>65)&&
+            (Math.abs(this.enemyLayer.enemyThree.x-this.physX.sprite.x)>100||Math.abs(this.enemyLayer.enemyThree.y-this.physX.sprite.y)>65)){
             this.losslife = 0;
         }
     },
 
     bumpExplore:function(sprite1,sprite2){
         //&&(sprite1.x - sprite2.x)>=100
-        if((sprite1.x - sprite2.x)<=100&&(sprite1.x - sprite2.x)>=-100&&
+        if((sprite1.x - sprite2.x)<=(-sprite1.getContentSize().width/2&&(sprite1.x - sprite2.x)>=-sprite1.getContentSize().width/2-10)
+            &&(sprite1.x - sprite2.x)>=-100&&
             ((sprite1.y - sprite2.y<65)&&(sprite1.y - sprite2.y>-65))){
             //this.losslife = 1;
+            return true;
+        }else{
+            return false;
+        }
+    },
+
+    //detectMeeting: function () {
+    //    if(this.meetExplore(this._tuna1,this.physX.sprite)&&this.meetEnemy==1){
+    //        if(this._tuna1.type==4){
+    //            this._tuna1.actAnimation();
+    //            cc.log("meet animation");
+    //        }
+    //        this.meetEnemy=0;
+    //    }
+    //    if(this.meetExplore(this._tuna2,this.physX.sprite)&&this.meetEnemy==1){
+    //        if(this._tuna2.type==4){
+    //            this._tuna2.actAnimation();
+    //            cc.log("meet animation");
+    //        }
+    //        this.meetEnemy=0;
+    //    }
+    //    if(this.meetExplore(this._tuna3,this.physX.sprite)&&this.meetEnemy==1){
+    //        if(this._tuna3.type==4){
+    //            this._tuna3.actAnimation();
+    //            cc.log("meet animation");
+    //        }
+    //        this.meetEnemy=0;
+    //    }
+    //    if((Math.abs(this._tuna1.x-this.physX.sprite.x)>100||Math.abs(this._tuna1.y-this.physX.sprite.y)>65)&&
+    //        (Math.abs(this._tuna2.x-this.physX.sprite.x)>100||Math.abs(this._tuna2.y-this.physX.sprite.y)>65)&&
+    //        (Math.abs(this._tuna3.x-this.physX.sprite.x)>100||Math.abs(this._tuna3.y-this.physX.sprite.y)>65)){
+    //        this.meetEnemy = 1;
+    //    }
+    //},
+
+    meetExplore:function(sprite1,sprite2){
+        if(((sprite1.x - sprite2.x)<=sprite1.getContentSize().width)&&((sprite1.x - sprite2.x)>=sprite1.getContentSize().width-10)&&
+            ((sprite1.y - sprite2.y<sprite1.getContentSize().height/2)&&(sprite1.y - sprite2.y>-sprite1.getContentSize().height/2))){
             return true;
         }else{
             return false;
@@ -269,6 +308,7 @@ var GameSceneLayer = cc.Layer.extend({
         this.moveMainActor();
         this.moveFish();
         this.detectCollision();
+        //this.detectMeeting();
 
         var timeStep = 0.03;
         this.physX.space.step(timeStep);
@@ -314,6 +354,7 @@ var GameSceneLayer = cc.Layer.extend({
 
     reduceLife:function(){
         this.losslife = 1;
+        this.bloodNum = 10;//è°ƒè¯•çš„æ—¶å€™æ— é™å‘½
         this.bloodNum --;
         //var action = cc.blink(0.5,4);
         //this.sprite.runAction(action);

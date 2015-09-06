@@ -63,7 +63,7 @@ var PhysX = cc.Layer.extend({
         this.space.addBody(this.body);
 
         this.shape = new cp.BoxShape(this.body,this.SPRITE_WIDTH,this.SPRITE_HEIGTH);
-        this.shape.setElasticity(0.2);
+        this.shape.setElasticity(0);
         this.shape.setFriction(0.1);
         this.space.addShape(this.shape);
 
