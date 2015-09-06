@@ -15,6 +15,7 @@ var GameSceneLayer = cc.Layer.extend({
     screenWidth:0,
     screenHeight:0,
     gameTime:0,
+
     ui:null,
     seaStone:null,
     _life:null,
@@ -25,7 +26,8 @@ var GameSceneLayer = cc.Layer.extend({
     _tuna2:null,
     _tuna3:null,
     score:null,
-
+    plusspeed:null,
+    minusspeed:null,
     bubble:null,
 
     touchLeft:null,
@@ -183,7 +185,13 @@ var GameSceneLayer = cc.Layer.extend({
         //move upward
         //if(this.touchUp==1&&(this.physX.sprite.getPositionY()<(this.screenHeight-this.SPRITE_HEIGTH))){
         if(this.touchUp==1){
-            this.physX.sprite.runAction(cc.MoveTo.create(1,this.physX.sprite.x,this.physX.sprite.y+10));
+            this.plusspeed = 0;
+            this.plusspeed += 12;
+            this.physX.sprite.runAction(cc.MoveTo.create(1,this.physX.sprite.x,this.physX.sprite.y+this.plusspeed));
+        }else{
+            this.minusspeed = -1;
+            this.minusspeed *= 4;
+            this.physX.sprite.runAction(cc.MoveTo.create(1,this.physX.sprite.x,this.physX.sprite.y+this.minusspeed));
         }
     },
 
