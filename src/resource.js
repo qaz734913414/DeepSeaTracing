@@ -19,14 +19,23 @@ var res = {
     Fish_png : "res/fish.png",
     Fish_plist : "res/fish.plist",
     FishSize_plist : "res/fishsize.plist",
-    FishSize_png : "res/fishsize.png"
+    FishSize_png : "res/fishsize.png",
+
+    Logo_png:"res/logo.png",
+    Restart1_png:"res/btnProcess/restart1.png",
+    Restart2_png:"res/btnProcess/restart2.png",
+    Pause_png:"res/btnProcess/pause.png",
+    Share_png:"res/btnProcess/share.png",
+    Start1_png:"res/btnProcess/start1.png",
+    Start2_png:"res/btnProcess/start2.png",
+    VoiceOn_png:"res/btnProcess/voiceOn.png",
+    VoiceOff_png:"res/btnProcess/voiceOff.png"
+
 };
 
 var g_resources = [];
+
 for (var i in res) {
     g_resources.push(res[i]);
 }
 
-var raceRoad = [110,220,330,440,550,660];    //6条轨道中心点
-var xOffset = [1,1.2,1.4,1.6,1.8,2];         //
-var speedRate = [0.2,0.4,0.6,0.8,1,1.2,1.4,1.6,1.8,2,2.2,2.4,2.6,2.8,3];  //速度变换倍率

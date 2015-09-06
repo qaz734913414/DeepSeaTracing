@@ -18,7 +18,9 @@
         "src/items/SeaStone.js",
         "src/Enemy.js",
         "src/gameUI/GameSceneUI.js",
-        "src/resource.js",
-        "src/items/PhysX.js"
+        "src/items/PhysX.js",
+        "src/scene/WelcomeScene.js",
+        "src/scene/MainScene.js",
+        "src/items/Constant.js"
     ]
 }

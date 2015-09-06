@@ -24,6 +24,7 @@ var GameSceneLayer = cc.Layer.extend({
     _tuna1:null,
     _tuna2:null,
     _tuna3:null,
+    score:null,
 
     bubble:null,
 
@@ -265,6 +266,10 @@ var GameSceneLayer = cc.Layer.extend({
         this.physX.space.step(timeStep);
         this.ui.distanceShow.setString(parseInt(this.gameTime*this.speed/10, 10));
 
+        //cc.log("---distance:---"+this.ui.distanceShow);
+        distance = parseInt(this.gameTime*this.speed/10, 10);
+        cc.log("---distanceNum:---"+distance);
+
     },
 
     addLife: function () {
@@ -305,6 +310,11 @@ var GameSceneLayer = cc.Layer.extend({
         //var action = cc.blink(0.5,4);
         //this.sprite.runAction(action);
         if(this.bloodNum==0){
+
+            //var GameOverUI = new GameOverLayer();
+            //this.removeAllChildren();
+            //this.removeChild(this.ui.distanceShow);
+            //this.addChild(GameOverUI);
             cc.director.runScene(new cc.TransitionCrossFade(1.0, new GameOverScene()));
         }
         console.log("bloodNum: " + this.bloodNum);
