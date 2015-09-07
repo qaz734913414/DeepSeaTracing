@@ -11,12 +11,12 @@ var Enemy = cc.Layer.extend({
     ctor:function(){
         cc.log("Enter Enermy");
         this._super();
-        //this.scheduleUpdate();
+        this.scheduleUpdate();
         var size = cc.winSize;
         this.screenWidth = size.width;
         this.screenHeight = size.height;
 
-        this.enemyOne = Fish.createRandomType();
+        this.enemyOne = Fish.createType(parseInt(Math.random()*10));
         this.enemyOne.x = size.width*xOffset[parseInt(Math.random()*6)];
         this.enemyOne.y = this.getRandomRaceRoad();
         cc.log(this.enemyOne.y);
@@ -24,14 +24,14 @@ var Enemy = cc.Layer.extend({
         this.addChild(this.enemyOne,1);
         cc.log("enemyOne finish");
 
-        this.enemyTwo = Fish.createRandomType();
+        this.enemyTwo = Fish.createType(parseInt(Math.random()*10));
         this.enemyTwo.x = size.width*xOffset[parseInt(Math.random()*6)];
         this.enemyTwo.y = this.getRandomRaceRoad();
         this.enemyTwo.anchorX = 0;
         this.addChild(this.enemyTwo,1);
         cc.log("enemyTwo finish");
 
-        this.enemyThree = Fish.createRandomType();
+        this.enemyThree = Fish.createType(parseInt(Math.random()*10));
         this.enemyThree.x = size.width*xOffset[parseInt(Math.random()*6)];
         this.enemyThree.y = this.getRandomRaceRoad();
         this.enemyThree.anchorX = 0;
@@ -41,21 +41,21 @@ var Enemy = cc.Layer.extend({
         cc.log("Enermy2 speed:" + this.enemyTwo.speed);
     },
 
-    //update:function(dt){
-    //    if(this.enermyOne.x<-this.screenWidth/2){
-    //        this.enermyOne.x = this.screenWidth;
-    //    }
-    //    if(this.enermyTwo.x<-this.screenWidth/2){
-    //        this.enermyTwo.x = this.screenWidth;
-    //    }
-    //    if(this.enermyThree.x<-this.screenWidth/2){
-    //        this.enermyThree.x = this.screenWidth;
-    //    }
-    //    this.enermyOne.x -= this.enermyOne.speed;
-    //    this.enermyTwo.x -= this.enermyTwo.speed;
-    //    this.enermyThree.x -= this.enermyThree.speed;
-    //
-    //},
+    update:function(dt){
+        if(this.enemyOne.x<-this.screenWidth/2){
+            this.enemyOne.x = this.screenWidth;
+        }
+        if(this.enemyTwo.x<-this.screenWidth/2){
+            this.enemyTwo.x = this.screenWidth;
+        }
+        if(this.enemyThree.x<-this.screenWidth/2){
+            this.enemyThree.x = this.screenWidth;
+        }
+        this.enemyOne.x -= this.enemyOne.speed;
+        this.enemyTwo.x -= this.enemyTwo.speed;
+        this.enemyThree.x -= this.enemyThree.speed;
+
+    },
     getRandomRaceRoad:function(){
         /**
          * 产生1~6随机赛道

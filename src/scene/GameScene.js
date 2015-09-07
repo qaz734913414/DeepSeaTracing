@@ -171,10 +171,10 @@ var GameSceneLayer = cc.Layer.extend({
         //move right
         if(this.touchRight==1){
             if(this.physX.sprite.getPositionX()<this.screenWidth/2){
-                //��������Ļ���ߣ������ƶ�
+                //主角在左半屏，主角动
                 this.physX.sprite.runAction(cc.MoveTo.create(1,this.physX.sprite.x+5,this.physX.sprite.y));
             }else{
-                //��������Ļ�м�
+                //主角要超出左半屏，背景动
                 this.seaStone.seaStone1.setPositionX(this.seaStone.seaStone1.getPositionX()-this.speed);
                 this.seaStone.seaStone2.setPositionX(this.seaStone.seaStone2.getPositionX()-this.speed);
                 this.bubble.x -= (this.speed);
@@ -189,7 +189,7 @@ var GameSceneLayer = cc.Layer.extend({
     },
 
     moveFish:function(){
-        //�����ƶ�
+        //敌人动
         if(this.physX.sprite.getPositionX()<this.screenWidth/2){
             this.enemyLayer.enemyOne.x -= (this.speed*1.3);
             this.enemyLayer.enemyTwo.x -= (this.speed*1.8);
@@ -306,7 +306,7 @@ var GameSceneLayer = cc.Layer.extend({
         this.seaStone.moveSeaStone();
         this.checkMainActor();
         this.moveMainActor();
-        this.moveFish();
+        //this.moveFish();
         this.detectCollision();
         //this.detectMeeting();
 

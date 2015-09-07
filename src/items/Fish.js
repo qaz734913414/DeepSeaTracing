@@ -11,7 +11,6 @@ var Fish = cc.Sprite.extend({
         if(type<=5&&type>=0){
             var frameCache = cc.spriteFrameCache;
             frameCache.addSpriteFrames(res.AnimationFiveToOne_plist,res.AnimationFiveToOne_png);
-            //var temp = (1+(type-1)*3);
             this._super("#fish"+type+".png");
             this.init(type);
             var animation = new cc.Animation();
@@ -21,11 +20,6 @@ var Fish = cc.Sprite.extend({
                 var spriteFrame = cc.spriteFrameCache.getSpriteFrame(frameName);
                 animation.addSpriteFrame(spriteFrame);
             }
-            //animation.setDelayPerUnit(0.1);
-            //animation.setRestoreOriginalFrame(false);
-            //var action = cc.animate(animation);
-            //this.runAction(cc.repeatForever(action));
-            //this.addParticleSystem(this);
         }
         if(type>=6&&type<=8){
             var frameCache = cc.spriteFrameCache;
@@ -39,11 +33,6 @@ var Fish = cc.Sprite.extend({
                 var spriteFrame = cc.spriteFrameCache.getSpriteFrame(frameName);
                 animation.addSpriteFrame(spriteFrame);
             }
-            //animation.setDelayPerUnit(0.1);
-            //animation.setRestoreOriginalFrame(false);
-            //var action = cc.animate(animation);
-            //this.runAction(cc.repeatForever(action));
-            //this.addParticleSystem(this);
         }
         if(type==9){
             var frameCache = cc.spriteFrameCache;
@@ -87,7 +76,6 @@ var Fish = cc.Sprite.extend({
     },
     addParticleSystem:function(sprite){
         var particleSystem = new cc.ParticleSystem(5);
-        //var particleSystem1 = new cc.ParticleFlower(20);
         particleSystem.texture = cc.textureCache.addImage(res.Bubble_png);
 
         particleSystem.x = 0;
@@ -147,7 +135,8 @@ var Fish = cc.Sprite.extend({
         return true;
     }
 });
-Fish.createRandomType = function(){
-    return new Fish(parseInt(Math.random()*10));
+Fish.createType = function(type){
+    type = parseInt(type);
+    return new Fish(type);
 };
 
