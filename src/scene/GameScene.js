@@ -57,7 +57,8 @@ var GameSceneLayer = cc.Layer.extend({
         this.physX = new PhysX(this);
         this.addChild(this.physX,3);
         this.physX.initPhysics();
-        //��ʼ������
+        
+        //初始化主角
         this.physX.addNewSpriteAtPosition(size.width/4,size.height/4);
 
         this.seaStone = new SeaStone(this);
@@ -88,7 +89,8 @@ var GameSceneLayer = cc.Layer.extend({
 
     },
 
-//-----------------------单点触控start-----------------//
+
+//-----------------------单点触摸start-----------------//
 
     onEnter:function(){
         this._super();
@@ -146,7 +148,7 @@ var GameSceneLayer = cc.Layer.extend({
         cc.eventManager.removeListener(cc.EventListener.TOUCH_ONE_BY_ONE);
     },
 
-//-------------------------------单点触控end------------------------//
+//-------------------------------单点触摸end------------------------//
 
     checkMainActor:function(){
         if(this.physX.sprite.x<20){
@@ -171,9 +173,11 @@ var GameSceneLayer = cc.Layer.extend({
         //move right
         if(this.touchRight==1){
             if(this.physX.sprite.getPositionX()<this.screenWidth/2){
+
                 //主角在左半屏，主角动
                 this.physX.sprite.runAction(cc.MoveTo.create(1,this.physX.sprite.x+5,this.physX.sprite.y));
             }else{
+
                 //主角要超出左半屏，背景动
                 this.seaStone.seaStone1.setPositionX(this.seaStone.seaStone1.getPositionX()-this.speed);
                 this.seaStone.seaStone2.setPositionX(this.seaStone.seaStone2.getPositionX()-this.speed);
@@ -189,6 +193,7 @@ var GameSceneLayer = cc.Layer.extend({
     },
 
     moveFish:function(){
+
         //敌人动
         if(this.physX.sprite.getPositionX()<this.screenWidth/2){
             this.enemyLayer.enemyOne.x -= (this.speed*1.3);
@@ -201,7 +206,7 @@ var GameSceneLayer = cc.Layer.extend({
         }
 
         //this.bubble.x -= (this.speed);
-        //����ѭ������
+        //敌人循环出现
         if(this.enemyLayer.enemyOne.x<=-this.screenWidth/2){
             this.enemyLayer.enemyOne.x = this.screenWidth*1.1;
         }

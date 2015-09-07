@@ -7,16 +7,16 @@
 var GameSceneUI = cc.Layer.extend({
     distanceShow:null,
     _life:null,
-    music_tag:1,
+
     ctor:function() {
         this._super();
         var size = cc.winSize;
-        var rightBtn = new cc.Sprite(res.RightBtn_png);
-        rightBtn.x = 147;
-        rightBtn.y = 0;
-        rightBtn.anchorX = 0;
-        rightBtn.anchorY = 0;
-        this.addChild(rightBtn,2);
+        var RightBtn = new cc.Sprite(res.RightBtn_png);
+        RightBtn.x = 147;
+        RightBtn.y = 0;
+        RightBtn.anchorX = 0;
+        RightBtn.anchorY = 0;
+        this.addChild(RightBtn,2);
 
         //Add Button
         var LeftBtn = new cc.Sprite(res.LeftBtn_png);
@@ -45,32 +45,41 @@ var GameSceneUI = cc.Layer.extend({
         this._life.y = size.height-30;
         this.addChild(this._life,1);
 
-        //ÖØĞÂ¿ªÊ¼°´Å¥
+        //é‡æ–°å¼€å§‹æŒ‰é’®
         var restartMenu = new cc.MenuItemImage(res.Restart1_png,res.Restart1_png,function(){
             //this.removeAllChildren();
             cc.director.resume();
-            cc.director.runScene(new cc.TransitionCrossFade(0.5,new MainScene()));
+            cc.director.runScene(new MainScene());
         },this);
         var restartMu = new cc.Menu(restartMenu);
         restartMu.x = size.width/2;
         restartMu.y = size.height/4;
 
-        //¼ÌĞøÓÎÏ·°´Å¥
+        //ç»§ç»­æ¸¸æˆæŒ‰é’®
         var resumeMenu = new cc.MenuItemImage(res.Start2_png,res.Start2_png,function(){
             this.removeChild(resumeMu);
             this.removeChild(restartMu);
             this.removeChild(btnVoiceOff);
             this.removeChild(btnVoiceOn);
+            this.addChild(RightBtn,2);
+            this.addChild(LeftBtn,2);
+            this.addChild(UpBtn,2);
             cc.director.resume();
         },this);
         var resumeMu = new cc.Menu(resumeMenu);
         resumeMu.x = size.width - 40;
         resumeMu.y = size.height - 40;
 
-        //ÒôÀÖ¿ª¹Ø°´Å¥
-        cc.audioEngine.playMusic("res/playingMusic.mp3", true);//ÔİÊ±ÓëÖ÷Ò³ÒôÀÖÏàÍ¬£¬ºóÆÚ»áÌæ»»
+        //éŸ³ä¹å¼€å…³æŒ‰é’®
+        //å…ˆåˆ¤æ–­è¯¥åœºæ™¯ä¸­éŸ³ä¹æ˜¯å¦å¼€å¯
+        if(GSMusic_tag == 1){
+            cc.audioEngine.playMusic("res/playingMusic.mp3", true);
+        }else if(GSMusic_tag == 0){
+            cc.audioEngine.stopMusic();
+        }
+        //éŸ³ä¹å¼€ï¼ŒæŒ‰ä¸‹åéŸ³ä¹å…³é—­
         var voiceOn = new cc.MenuItemImage(res.VoiceOn_png,res.VoiceOn_png,function(){
-            this.music_tag = 0;
+            GSMusic_tag = 0;
             cc.audioEngine.stopMusic();
             btnVoiceOn.setVisible(false);
             btnVoiceOff.setVisible(true);
@@ -79,9 +88,9 @@ var GameSceneUI = cc.Layer.extend({
         btnVoiceOn.x = size.width/2;
         btnVoiceOn.y = size.height/2;
         //this.addChild(btnVoiceOn,2);
-
+        //éŸ³ä¹å…³ï¼ŒæŒ‰ä¸‹åéŸ³ä¹æ‰“å¼€
         var voiceOff = new cc.MenuItemImage(res.VoiceOff_png,res.VoiceOff_png,function(){
-            this.music_tag = 1;
+            GSMusic_tag = 1;
             cc.audioEngine.playMusic("res/playingMusic.mp3", true);
             btnVoiceOn.setVisible(true);
             btnVoiceOff.setVisible(false);
@@ -90,17 +99,20 @@ var GameSceneUI = cc.Layer.extend({
         btnVoiceOff.x = size.width/2;
         btnVoiceOff.y = size.height/2;
         //this.addChild(btnVoiceOff,2);
-        //btnVoiceOff.setVisible(false);
-        //ÔİÍ£°´Å¥
+
+        //æš‚åœæŒ‰é’®
         var pauseMenu = new cc.MenuItemImage(res.Pause_png,res.Pause_png,function(){
             this.addChild(resumeMu,2);
             this.addChild(restartMu,2);
             this.addChild(btnVoiceOn,2);
             this.addChild(btnVoiceOff,2);
-            if(this.music_tag == 1){
+            this.removeChild(RightBtn);
+            this.removeChild(LeftBtn);
+            this.removeChild(UpBtn);
+            if(GSMusic_tag == 1){
                 btnVoiceOn.setVisible(true);
                 btnVoiceOff.setVisible(false);
-            }else if(this.music_tag == 0){
+            }else if(GSMusic_tag == 0){
                 btnVoiceOn.setVisible(false);
                 btnVoiceOff.setVisible(true);
             }
