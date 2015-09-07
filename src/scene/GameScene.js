@@ -58,7 +58,7 @@ var GameSceneLayer = cc.Layer.extend({
         this.addChild(this.physX,3);
         this.physX.initPhysics();
         
-        //初始化主角
+        //初始化主�?
         this.physX.addNewSpriteAtPosition(size.width/4,size.height/4);
 
         this.seaStone = new SeaStone(this);
@@ -188,13 +188,20 @@ var GameSceneLayer = cc.Layer.extend({
         //move upward
         //if(this.touchUp==1&&(this.physX.sprite.getPositionY()<(this.screenHeight-this.SPRITE_HEIGTH))){
         if(this.touchUp==1){
-            this.physX.sprite.runAction(cc.MoveTo.create(1,this.physX.sprite.x,this.physX.sprite.y+10));
+            speedip = 2;
+            speedip +=7;
+            this.physX.sprite.runAction(cc.MoveTo.create(1,this.physX.sprite.x,this.physX.sprite.y+speedip));
+        }
+        else{speedip = 0;
+            speedip -=4;
+            this.physX.sprite.runAction(cc.MoveTo.create(1,this.physX.sprite.x,this.physX.sprite.y+speedip));
+
         }
     },
 
     moveFish:function(){
 
-        //敌人动
+        //敌人�?
         if(this.physX.sprite.getPositionX()<this.screenWidth/2){
             this.enemyLayer.enemyOne.x -= (this.speed*1.3);
             this.enemyLayer.enemyTwo.x -= (this.speed*1.8);
