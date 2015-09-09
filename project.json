@@ -8,7 +8,7 @@
     "renderMode" : 0,
     "engineDir":"frameworks/cocos2d-html5",
 
-    "modules" : ["cocos2d","external"],
+    "modules" : ["cocos2d","external","extensions"],
 
     "jsList" : [
         "src/resource.js",
@@ -21,6 +21,7 @@
         "src/items/PhysX.js",
         "src/scene/WelcomeScene.js",
         "src/scene/MainScene.js",
-        "src/items/Constant.js"
+        "src/items/Constant.js",
+        "src/items/MainRole.js"
     ]
 }

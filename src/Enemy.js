@@ -2,10 +2,8 @@
  * Created by njw on 2015/8/28.
  */
 var Enemy = cc.Layer.extend({
-    //speed:0,
-    enemyOne:null,
-    enemyTwo:null,
-    enemyThree:null,
+    enemyNum:null,
+    enemyFish:[],
     screenWidth:0,
     screenHeight:0,
     ctor:function(){
@@ -16,44 +14,64 @@ var Enemy = cc.Layer.extend({
         this.screenWidth = size.width;
         this.screenHeight = size.height;
 
-        this.enemyOne = Fish.createType(parseInt(Math.random()*10));
-        this.enemyOne.x = size.width*xOffset[parseInt(Math.random()*6)];
-        this.enemyOne.y = this.getRandomRaceRoad();
-        cc.log(this.enemyOne.y);
-        this.enemyOne.anchorX = 0;
-        this.addChild(this.enemyOne,1);
-        cc.log("enemyOne finish");
+        this.enemyNum = parseInt(Math.random()*3+4);
 
-        this.enemyTwo = Fish.createType(parseInt(Math.random()*10));
-        this.enemyTwo.x = size.width*xOffset[parseInt(Math.random()*6)];
-        this.enemyTwo.y = this.getRandomRaceRoad();
-        this.enemyTwo.anchorX = 0;
-        this.addChild(this.enemyTwo,1);
-        cc.log("enemyTwo finish");
+        for(var i=0; i<enemyFishType.length; i++){
+            this.enemyFish[i] = Fish.createType(enemyFishType[i]/4);
+            //this.enemyFish[i].x = size.width*xOffset[parseInt(Math.random()*6)];
+            //this.enemyFish[i].y = this.getRandomRaceRoad();
+            this.enemyFish[i].x = enemyFishX[i];
+            this.enemyFish[i].y = this.screenHeight - enemyFishY[i];
+            this.enemyFish[i].anchorX = 0;
+            cc.log(this.enemyFish[i]);
+            this.addChild(this.enemyFish[i],1);
+        }
 
-        this.enemyThree = Fish.createType(parseInt(Math.random()*10));
-        this.enemyThree.x = size.width*xOffset[parseInt(Math.random()*6)];
-        this.enemyThree.y = this.getRandomRaceRoad();
-        this.enemyThree.anchorX = 0;
-        this.addChild(this.enemyThree,1);
 
-        cc.log("Enermy1 speed:" + this.enemyOne.speed);
-        cc.log("Enermy2 speed:" + this.enemyTwo.speed);
+
+        //this.enemyOne = Fish.createType(parseInt(Math.random()*15));
+        //this.enemyOne.x = size.width*xOffset[parseInt(Math.random()*6)];
+        //this.enemyOne.y = this.getRandomRaceRoad();
+        //cc.log(this.enemyOne.y);
+        //this.enemyOne.anchorX = 0;
+        //this.addChild(this.enemyOne,1);
+        //cc.log("enemyOne finish");
+        //
+        //this.enemyTwo = Fish.createType(parseInt(Math.random()*15));
+        //this.enemyTwo.x = size.width*xOffset[parseInt(Math.random()*6)];
+        //this.enemyTwo.y = this.getRandomRaceRoad();
+        //this.enemyTwo.anchorX = 0;
+        //this.addChild(this.enemyTwo,1);
+        //cc.log("enemyTwo finish");
+        //
+        //this.enemyThree = Fish.createType(parseInt(Math.random()*15));
+        //this.enemyThree.x = size.width*xOffset[parseInt(Math.random()*6)];
+        //this.enemyThree.y = this.getRandomRaceRoad();
+        //this.enemyThree.anchorX = 0;
+        //this.addChild(this.enemyThree,1);
+        //
+        //cc.log("Enermy1 speed:" + this.enemyOne.speed);
+        //cc.log("Enermy2 speed:" + this.enemyTwo.speed);
     },
 
     update:function(dt){
-        if(this.enemyOne.x<-this.screenWidth/2){
-            this.enemyOne.x = this.screenWidth;
+        //for(var i=0; i<this.enemyNum; i++){
+        //    if(this.enemyFish[i].x<-this.screenWidth/2){
+        //        this.removeChild(this.enemyFish[i]);
+        //        this.enemyFish[i] = null;
+        //        this.enemyFish[i] = Fish.createType(parseInt(Math.random()*16));
+        //        this.enemyFish[i].x = cc.winSize.width*xOffset[parseInt(Math.random()*6)];
+        //        this.enemyFish[i].y = this.getRandomRaceRoad();
+        //        this.enemyFish[i].anchorX = 0;
+        //        this.addChild(this.enemyFish[i],1);
+        //    }
+        //}
+
+        for(var i=0; i<enemyFishType.length; i++){
+            //this.enemyFish[i].x -= this.enemyFish[i].speed;
+            if(enemyFishType[i])
+            this.enemyFish[i].x -= 5;
         }
-        if(this.enemyTwo.x<-this.screenWidth/2){
-            this.enemyTwo.x = this.screenWidth;
-        }
-        if(this.enemyThree.x<-this.screenWidth/2){
-            this.enemyThree.x = this.screenWidth;
-        }
-        this.enemyOne.x -= this.enemyOne.speed;
-        this.enemyTwo.x -= this.enemyTwo.speed;
-        this.enemyThree.x -= this.enemyThree.speed;
 
     },
     getRandomRaceRoad:function(){

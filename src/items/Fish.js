@@ -2,50 +2,22 @@
  * Created by njw on 2015/8/27.
  */
 var Fish = cc.Sprite.extend({
-    type:0,//1~6是游动的鱼，789是地上冒出来的鱼，10石头鱼
+    type:0,//15种鱼，
     speed:5,
     ctor:function(type){
         type = parseInt(type);
         cc.log("random num:"+type);
         var size = cc.winSize;
-        if(type<=5&&type>=0){
-            var frameCache = cc.spriteFrameCache;
-            frameCache.addSpriteFrames(res.AnimationFiveToOne_plist,res.AnimationFiveToOne_png);
-            this._super("#fish"+type+".png");
-            this.init(type);
-            var animation = new cc.Animation();
-            for(var i = type*5;i<type*5+5;i++){
-                var frameName = "fish"+i+".png";
-                cc.log(frameName);
-                var spriteFrame = cc.spriteFrameCache.getSpriteFrame(frameName);
-                animation.addSpriteFrame(spriteFrame);
-            }
-        }
-        if(type>=6&&type<=8){
-            var frameCache = cc.spriteFrameCache;
-            frameCache.addSpriteFrames(res.Eel_plist,res.Eel_png);
-            this._super("#eel"+(type-5)+".png");
-            this.init(type);
-            var animation = new cc.Animation();
-            for(var i = (type-6)*2+1;i<((type-6)*2+3);i++){
-                var frameName = "eel"+i+".png";
-                cc.log(frameName);
-                var spriteFrame = cc.spriteFrameCache.getSpriteFrame(frameName);
-                animation.addSpriteFrame(spriteFrame);
-            }
-        }
-        if(type==9){
-            var frameCache = cc.spriteFrameCache;
-            frameCache.addSpriteFrames(res.StoneFish_plist,res.StoneFish_png);
-            this._super("#stone"+(type-8)+".png");
-            this.init(type);
-            var animation = new cc.Animation();
-            for(var i = 1;i<5;i++){
-                var frameName = "stone"+i+".png";
-                cc.log(frameName);
-                var spriteFrame = cc.spriteFrameCache.getSpriteFrame(frameName);
-                animation.addSpriteFrame(spriteFrame);
-            }
+        var frameCache = cc.spriteFrameCache;
+        frameCache.addSpriteFrames(res.AllEnemyFish_plist,res.AllEnemyFish_png);
+        this._super("#fish"+(type*4)+".png");
+        this.init(type);
+        var animation = new cc.Animation();
+        for(var i = type*4;i<type*4+4;i++){
+            var frameName = "fish"+i+".png";
+            cc.log(frameName);
+            var spriteFrame = cc.spriteFrameCache.getSpriteFrame(frameName);
+            animation.addSpriteFrame(spriteFrame);
         }
         animation.setDelayPerUnit(0.1);
         animation.setRestoreOriginalFrame(false);

@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+		<key>frames</key>
+		<dict>
+			<key>RoleLeft1.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{536,0},{86,90}}</string>
+				<key>offset</key>
+				<string>{2,1}</string>
+				<key>rotated</key>
+				<true />
+				<key>sourceSize</key>
+				<string>{93,92}</string>
+			</dict>
+			<key>RoleLeft2.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{180,0},{88,89}}</string>
+				<key>offset</key>
+				<string>{1,1}</string>
+				<key>rotated</key>
+				<true />
+				<key>sourceSize</key>
+				<string>{93,92}</string>
+			</dict>
+			<key>RoleLeft3.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,0},{90,88}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{93,92}</string>
+			</dict>
+			<key>RoleLeft4.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{269,0},{88,89}}</string>
+				<key>offset</key>
+				<string>{1,1}</string>
+				<key>rotated</key>
+				<true />
+				<key>sourceSize</key>
+				<string>{93,92}</string>
+			</dict>
+			<key>RoleRight1.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{626,0},{86,90}}</string>
+				<key>offset</key>
+				<string>{-1,1}</string>
+				<key>rotated</key>
+				<true />
+				<key>sourceSize</key>
+				<string>{93,92}</string>
+			</dict>
+			<key>RoleRight2.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{358,0},{88,89}}</string>
+				<key>offset</key>
+				<string>{0,1}</string>
+				<key>rotated</key>
+				<true />
+				<key>sourceSize</key>
+				<string>{93,92}</string>
+			</dict>
+			<key>RoleRight3.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{90,0},{90,88}}</string>
+				<key>offset</key>
+				<string>{1,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{93,92}</string>
+			</dict>
+			<key>RoleRight4.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{447,0},{88,89}}</string>
+				<key>offset</key>
+				<string>{0,1}</string>
+				<key>rotated</key>
+				<true />
+				<key>sourceSize</key>
+				<string>{93,92}</string>
+			</dict>
+		</dict>
+		<key>metadata</key>
+		<dict>
+			<key>format</key>
+			<integer>2</integer>
+			<key>textureFileName</key>
+			<string>RolesSwim.png</string>
+			<key>realTextureFileName</key>
+			<string>RolesSwim.png</string>
+			<key>size</key>
+			<string>{1024,128}</string>
+		</dict>
+		<key>texture</key>
+		<dict>
+			<key>width</key>
+			<integer>1024</integer>
+			<key>height</key>
+			<integer>128</integer>
+		</dict>
+	</dict>
+</plist>

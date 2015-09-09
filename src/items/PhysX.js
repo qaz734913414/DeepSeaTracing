@@ -7,6 +7,7 @@ var PhysX = cc.Layer.extend({
     DEBUG_NODE_SHOW:false,
     body:null,
     sprite:null,
+    sprite1:null,
     shape:null,
     space:null,
     upSpeed:null,
@@ -67,10 +68,18 @@ var PhysX = cc.Layer.extend({
         this.shape.setFriction(0.1);
         this.space.addShape(this.shape);
 
-        this.sprite = new cc.PhysicsSprite(res.Role_png);
+        //this.sprite = new cc.PhysicsSprite(res.Role_png);
+        this.sprite = MainRole.createType(0);
         this.sprite.setBody(this.body);
         this.sprite.setPosition(x,y);
         this.addChild(this.sprite,2);
+
+        this.sprite1 = MainRole.createType(1);
+        this.sprite1.setBody(this.body);
+        this.sprite1.setPosition(x,y);
+        this.addChild(this.sprite1,2);
+
+
 
     },
 
