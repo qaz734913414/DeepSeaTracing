@@ -322,7 +322,7 @@ var GameSceneLayer = cc.Layer.extend({
     moveMap:function(){
         this.sprite1.setPosition(this.sprite.x,this.sprite.y);
         if(this.touchUp == 1){
-            if(this.sprite.y >=400 && this.map1.y>=-450){
+            if(this.sprite.y >=400 && this.map1.y>=-450&&this.sprite.x>30&&this.sprite.x<1250&&this.sprite.y>30&&this.sprite.y<690){
                 this.map1.setPosition(this.map1.x,this.map1.y-this.groundSpeed);
                 this.map_01_2.y -= this.groundSpeed;
                 this.map_01_a.y -= this.groundSpeed;
@@ -347,18 +347,20 @@ var GameSceneLayer = cc.Layer.extend({
         }
 
         if(this.sprite.y <= 200 && this.map1.y<=0){
-            this.map1.setPosition(this.map1.x,this.map1.y+this.groundSpeed);
-            this.map_01_2.y += this.groundSpeed;
-            this.map_01_a.y += this.groundSpeed;
-            this.map_01_b.y += this.groundSpeed;
-            this.map_01_stone1.y += this.groundSpeed;
-            this.map_01_stone2.y += this.groundSpeed;
-            this.enemyFish1.y += this.groundSpeed;
-            this.enemyFish2.y += this.groundSpeed;
-            this.enemyFish3.y += this.groundSpeed;
-            this.enemyFish4.y += this.groundSpeed;
-            this.enemyFish5.y += this.groundSpeed;
-            this.enemyFish6.y += this.groundSpeed;
+            if(this.sprite.x>30&&this.sprite.x<1250&&this.sprite.y>30&&this.sprite.y<690){
+                this.map1.setPosition(this.map1.x,this.map1.y+this.groundSpeed);
+                this.map_01_2.y += this.groundSpeed;
+                this.map_01_a.y += this.groundSpeed;
+                this.map_01_b.y += this.groundSpeed;
+                this.map_01_stone1.y += this.groundSpeed;
+                this.map_01_stone2.y += this.groundSpeed;
+                this.enemyFish1.y += this.groundSpeed;
+                this.enemyFish2.y += this.groundSpeed;
+                this.enemyFish3.y += this.groundSpeed;
+                this.enemyFish4.y += this.groundSpeed;
+                this.enemyFish5.y += this.groundSpeed;
+                this.enemyFish6.y += this.groundSpeed;
+            }
         }
 
         if(this.touchRight == 1){
@@ -367,25 +369,27 @@ var GameSceneLayer = cc.Layer.extend({
             if(this.sprite.x <800 ){
                 this.sprite.setPosition(this.sprite.x+2,this.sprite.y);
             }else {
-                this.map1.setPosition(this.map1.x-this.groundSpeed,this.map1.y);
-                this.map_01_2.x -= this.groundSpeed;
-                this.map_01_a.x -= this.groundSpeed;
-                this.map_01_b.x -= this.groundSpeed;
-                this.map_01_stone1.x -= this.groundSpeed;
-                this.map_01_stone2.x -= this.groundSpeed;
-                this.enemyFish1.x -= this.groundSpeed;
-                this.enemyFish2.x -= this.groundSpeed;
-                this.enemyFish3.x -= this.groundSpeed;
-                this.enemyFish4.x -= this.groundSpeed;
-                this.enemyFish5.x -= this.groundSpeed;
-                this.enemyFish6.x -= this.groundSpeed;
+                if(this.sprite.x>30&&this.sprite.x<1250&&this.sprite.y>30&&this.sprite.y<690){
+                    this.map1.setPosition(this.map1.x-this.groundSpeed,this.map1.y);
+                    this.map_01_2.x -= this.groundSpeed;
+                    this.map_01_a.x -= this.groundSpeed;
+                    this.map_01_b.x -= this.groundSpeed;
+                    this.map_01_stone1.x -= this.groundSpeed;
+                    this.map_01_stone2.x -= this.groundSpeed;
+                    this.enemyFish1.x -= this.groundSpeed;
+                    this.enemyFish2.x -= this.groundSpeed;
+                    this.enemyFish3.x -= this.groundSpeed;
+                    this.enemyFish4.x -= this.groundSpeed;
+                    this.enemyFish5.x -= this.groundSpeed;
+                    this.enemyFish6.x -= this.groundSpeed;
+                }
             }
         }
 
         if(this.touchLeft == 1){
             this.sprite.setVisible(false);
             this.sprite1.setVisible(true);
-            if(this.map1.x<=-2){
+            if(this.map1.x<=-2&&this.sprite.x>30&&this.sprite.x<1250&&this.sprite.y>30&&this.sprite.y<690){
                 this.map1.setPosition(this.map1.x+this.groundSpeed,this.map1.y);
                 this.map_01_2.x += this.groundSpeed;
                 this.map_01_a.x += this.groundSpeed;
